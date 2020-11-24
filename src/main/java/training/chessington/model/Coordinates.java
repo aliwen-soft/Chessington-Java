@@ -40,6 +40,14 @@ public final class Coordinates {
         return false;
     }
 
+    public boolean friendlySpace(Board board, PlayerColour colour){
+        if(onBoard()) {
+            Piece space = board.get(this);
+            return space != null && space.getColour() == colour;
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
