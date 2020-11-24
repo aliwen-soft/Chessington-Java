@@ -169,7 +169,81 @@ public class KingTest {
         assertThat(moves).doesNotContain(new Move(coords, coords.plus(-2, -1)));
     }
 
+    @Test
+    public void blackKingCanTakeWhitePiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.BLACK);
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates coordsking = new Coordinates(6, 4);
+        Coordinates coordspawn = new Coordinates(7, 4);
+        board.placePiece(coordsking, king);
+        board.placePiece(coordspawn, pawn);
 
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).contains(new Move(coordsking, coordspawn));
+
+    }
+
+    @Test
+    public void blackKingCannotTakeBlackPiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.BLACK);
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates coordsking = new Coordinates(6, 4);
+        Coordinates coordspawn = new Coordinates(7, 4);
+        board.placePiece(coordsking, king);
+        board.placePiece(coordspawn, pawn);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(coordsking, coordspawn));
+
+    }
+
+    @Test
+    public void whiteKingCanTakeBlackPiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates coordsking = new Coordinates(6, 4);
+        Coordinates coordspawn = new Coordinates(7, 4);
+        board.placePiece(coordsking, king);
+        board.placePiece(coordspawn, pawn);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).contains(new Move(coordsking, coordspawn));
+
+    }
+
+    @Test
+    public void whiteKingCannotTakeWhitePiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates coordsking = new Coordinates(6, 4);
+        Coordinates coordspawn = new Coordinates(7, 4);
+        board.placePiece(coordsking, king);
+        board.placePiece(coordspawn, pawn);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(coordsking, coordspawn));
+
+    }
 
 
 
