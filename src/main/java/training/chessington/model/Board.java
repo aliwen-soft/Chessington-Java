@@ -2,9 +2,17 @@ package training.chessington.model;
 
 import training.chessington.model.pieces.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
 
     private Piece[][] board = new Piece[8][8];
+    private List<BoardMove> completeMoves =new ArrayList<>();
+
+    public List<BoardMove> getCompleteMoves() {
+        return completeMoves;
+    }
 
     private Board() {
     }
@@ -42,8 +50,13 @@ public class Board {
     }
 
     public void move(Coordinates from, Coordinates to) {
+        Piece.PieceType pieceType = get(from).getType();
+        if(pieceType == Piece.PieceType.PAWN && from.getCol() != to.getCol() && board[to.getRow()][to.getCol()] == null ){
+            board[from.getRow()][to.getCol()] = null;
+        }
         board[to.getRow()][to.getCol()] = board[from.getRow()][from.getCol()];
         board[from.getRow()][from.getCol()] = null;
+        completeMoves.add(new BoardMove(from,to,pieceType));
     }
 
     public void placePiece(Coordinates coords, Piece piece) {

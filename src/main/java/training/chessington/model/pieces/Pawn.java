@@ -1,9 +1,6 @@
 package training.chessington.model.pieces;
 
-import training.chessington.model.Board;
-import training.chessington.model.Coordinates;
-import training.chessington.model.Move;
-import training.chessington.model.PlayerColour;
+import training.chessington.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +34,22 @@ public class Pawn extends AbstractPiece {
             moves.add(new Move(from, to));
         }
 
-        int[] diags = {1,-1};
-        for(int d :diags) {
+        int[] diags = {1, -1};
+        for (int d : diags) {
             to = from.plus(modifier, d);
             if (to.attackableSpace(board, colour)) {
                 moves.add(new Move(from, to));
             }
+        }
+
+        if (board.getCompleteMoves().size() > 0 && board.getCompleteMoves().get(board.getCompleteMoves().size() - 1).getPiece() == PieceType.PAWN) {
+            BoardMove preMove = board.getCompleteMoves().get(board.getCompleteMoves().size() - 1);
+            boolean doubleMove = Math.abs(preMove.getFrom().getRow() - preMove.getTo().getRow()) == 2;
+            boolean nextTo = Math.abs(preMove.getTo().getCol() - from.getCol()) == 1 && preMove.getTo().getRow() == from.getRow();
+            if (doubleMove && nextTo) {
+                moves.add(new Move(from, new Coordinates(from.getRow()+modifier,preMove.getTo().getCol()) ));
+            }
+            return moves;
         }
 
 

@@ -2,7 +2,7 @@ package training.chessington.model;
 
 import java.util.Objects;
 
-public final class Move {
+public class Move {
     private final Coordinates from;
     private final Coordinates to;
 

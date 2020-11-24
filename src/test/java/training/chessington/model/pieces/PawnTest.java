@@ -288,7 +288,7 @@ public class PawnTest {
         // Arrange
         Board board = Board.empty();
         Piece pawn = new Pawn(PlayerColour.WHITE);
-        Piece enemypawm = new Rook(PlayerColour.BLACK);
+        Piece enemypawm = new Pawn(PlayerColour.BLACK);
         Coordinates pawnCoords = new Coordinates(3, 5);
         Coordinates enemypawnCoords = new Coordinates(1, 6);
         board.placePiece(pawnCoords, pawn);
@@ -301,6 +301,7 @@ public class PawnTest {
 
         // Assert
         assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(1,0)));
+        board.move(pawnCoords , enemypawnCoords.plus(1,0));
         assertThat(board.get(enemypawnCoords.plus(2,0))==null);
     }
 
@@ -309,8 +310,8 @@ public class PawnTest {
         // Arrange
         Board board = Board.empty();
         Piece pawn = new Pawn(PlayerColour.BLACK);
-        Piece enemypawm = new Rook(PlayerColour.WHITE);
-        Coordinates pawnCoords = new Coordinates(5, 5);
+        Piece enemypawm = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(4, 5);
         Coordinates enemypawnCoords = new Coordinates(6, 6);
         board.placePiece(pawnCoords, pawn);
         board.placePiece(enemypawnCoords, enemypawm);
@@ -322,6 +323,7 @@ public class PawnTest {
 
         // Assert
         assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(-1,0)));
+        board.move(pawnCoords , enemypawnCoords.plus(-1,0));
         assertThat(board.get(enemypawnCoords.plus(-2,0))==null);
     }
 }
