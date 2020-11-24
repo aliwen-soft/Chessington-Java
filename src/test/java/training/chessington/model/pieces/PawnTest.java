@@ -282,4 +282,44 @@ public class PawnTest {
         Coordinates otherDiagonal = pawnCoords.plus(1, -1);
         assertThat(moves).doesNotContain(new Move(pawnCoords, otherDiagonal));
     }
+
+    @Test
+    public void whitePawnsEnPassant() {
+        // Arrange
+        Board board = Board.empty();
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Piece enemypawm = new Rook(PlayerColour.BLACK);
+        Coordinates pawnCoords = new Coordinates(3, 5);
+        Coordinates enemypawnCoords = new Coordinates(1, 6);
+        board.placePiece(pawnCoords, pawn);
+        board.placePiece(enemypawnCoords, enemypawm);
+
+        board.move(enemypawnCoords,enemypawnCoords.plus(2,0));
+
+        // Act
+        List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+        // Assert
+        assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(1,0)));
+    }
+
+    @Test
+    public void blackPawnsEnPassant() {
+        // Arrange
+        Board board = Board.empty();
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Piece enemypawm = new Rook(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(5, 5);
+        Coordinates enemypawnCoords = new Coordinates(6, 6);
+        board.placePiece(pawnCoords, pawn);
+        board.placePiece(enemypawnCoords, enemypawm);
+
+        board.move(enemypawnCoords,enemypawnCoords.plus(-2,0));
+
+        // Act
+        List<Move> moves = pawn.getAllowedMoves(pawnCoords, board);
+
+        // Assert
+        assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(-1,0)));
+    }
 }
