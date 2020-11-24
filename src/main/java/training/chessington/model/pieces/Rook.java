@@ -35,4 +35,6 @@ public class Rook extends AbstractPiece {
         }
         return moves;
     }
+
+
 }
