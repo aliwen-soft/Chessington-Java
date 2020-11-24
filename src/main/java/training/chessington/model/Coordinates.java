@@ -1,5 +1,7 @@
 package training.chessington.model;
 
+import training.chessington.model.pieces.Piece;
+
 import java.util.Objects;
 
 public final class Coordinates {
@@ -17,6 +19,25 @@ public final class Coordinates {
 
     public int getCol() {
         return col;
+    }
+
+    public boolean onBoard(){
+        return row >=0 && row <=7 && col>=0 && col<=7 ;
+    }
+
+    public boolean emptySpace(Board board){
+        if (onBoard()) {
+            return board.get(this) == null;
+        }
+        return false;
+    }
+
+    public boolean attackableSpace(Board board, PlayerColour colour){
+        if(onBoard()) {
+            Piece space = board.get(this);
+            return space != null && space.getColour() != colour;
+        }
+        return false;
     }
 
     @Override

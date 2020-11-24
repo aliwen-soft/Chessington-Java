@@ -13,44 +13,38 @@ public class Pawn extends AbstractPiece {
         super(Piece.PieceType.PAWN, colour);
     }
 
+    private boolean notMoved(PlayerColour colour, Coordinates from) {
+        if (colour == PlayerColour.WHITE) {
+            return from.getRow() == 6;
+        } else {
+            return from.getRow() == 1;
+        }
+    }
+
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> moves = new ArrayList<>();
-        if (this.colour.equals(PlayerColour.WHITE)) {
-            Coordinates to = from.plus(-1, 0);
-            if (to.getRow()>0 && board.get(to)==null) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(-2, 0);
-            if(from.getRow()==6 && board.get(to)==null){
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(-1, -1);
-            if (to.getCol()>0 && to.getRow()>0 && board.get(to)!=null && board.get(to).getColour() != PlayerColour.WHITE ) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(-1, 1);
-            if (to.getCol()<8 && to.getRow()>0 && board.get(to)!=null&& board.get(to).getColour() != PlayerColour.WHITE ) {
-                moves.add(new Move(from, to));
-            }
-        }else{
-            Coordinates to = from.plus(1, 0);
-            if (to.getRow()<8 && board.get(to)==null) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(2, 0);
-            if(from.getRow()==1 && board.get(to)==null){
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(1, -1);
-            if (to.getCol()>0 && to.getRow()<8 && board.get(to)!=null&& board.get(to).getColour() != PlayerColour.BLACK) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(1, 1);
-            if (to.getCol()<8 && to.getRow()<8 && board.get(to)!=null && board.get(to).getColour() != PlayerColour.BLACK) {
+
+        int modifier = (colour == PlayerColour.BLACK ? 1 : -1);
+
+        Coordinates to = from.plus(modifier, 0);
+        if (to.emptySpace(board)) {
+            moves.add(new Move(from, to));
+        }
+
+        to = from.plus(2 * modifier, 0);
+        if (to.emptySpace(board) && notMoved(colour, from)) {
+            moves.add(new Move(from, to));
+        }
+
+        int[] diags = {1,-1};
+        for(int d :diags) {
+            to = from.plus(modifier, d);
+            if (to.attackableSpace(board, colour)) {
                 moves.add(new Move(from, to));
             }
         }
+
 
         return moves;
     }
