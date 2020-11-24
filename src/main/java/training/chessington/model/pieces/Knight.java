@@ -17,27 +17,20 @@ public class Knight extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> moves = new ArrayList<>();
         int[] modifiers={-1,1};
+        int[] modifiersInside={-1,1};
 
         for(int modifier: modifiers){
-            Coordinates to = from.plus(3,modifier*1);
-            if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(-3,modifier*1);
-            if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(1,modifier*3);
-            if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                moves.add(new Move(from, to));
-            }
-            to = from.plus(-1,modifier*3);
-            if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                moves.add(new Move(from, to));
+            for(int modifierInside: modifiersInside) {
+                Coordinates to = from.plus(modifierInside*3, modifier * 1);
+                if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
+                    moves.add(new Move(from, to));
+                }
+                to = from.plus(modifierInside*1, modifier * 3);
+                if ((to.emptySpace(board) || to.attackableSpace(board, colour))) {
+                    moves.add(new Move(from, to));
+                }
             }
         }
-
-
         return moves;
     }
 }
