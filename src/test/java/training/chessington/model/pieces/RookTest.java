@@ -50,4 +50,27 @@ public class RookTest {
         StraightTest.canTakePieces(rook);
     }
 
+    @Test
+    public void rookCanCastle() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.BLACK);
+        Piece castle = new Rook(PlayerColour.BLACK);
+        Coordinates coordsking = new Coordinates(0, 4);
+        Coordinates coordsCastle = new Coordinates(0, 0);
+
+        board.placePiece(coordsking, king);
+        board.placePiece(coordsCastle, castle);
+
+        // Act
+        List<Move> moves = castle.getAllowedMoves(coordsking, board);
+
+        // Assert
+        Move castling = new Move(coordsCastle, coordsking.plus(0,2));
+        assertThat(moves).contains(castling);
+        board.move(castling.getFrom(), castling.getTo());
+        assertThat(board.get(castling.getTo().plus(0,-1)).getType()== Piece.PieceType.KING);
+        assertThat(board.get(coordsking)==null);
+    }
+
 }
