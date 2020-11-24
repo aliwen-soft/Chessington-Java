@@ -15,24 +15,7 @@ public class Bishop extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        List<Move> moves = new ArrayList<>();
-        int[] modifiers = {-1,1};
-        for (int modifier : modifiers) {
-            boolean clearBackwards=true;
-            boolean clearRow=true;
-            for (int i = 1; i < 8; i++) {
-                Coordinates to = from.plus(i, modifier*i);
-                clearRow =  to.friendlySpace(board,colour) ? false : clearRow;
-                if (clearRow &&(to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                    moves.add(new Move(from, to));
-                }
-                to = from.plus(-i, modifier*i);
-                clearBackwards =  to.friendlySpace(board,colour) ? false : clearBackwards;
-                if (clearBackwards &&(to.emptySpace(board) || to.attackableSpace(board, colour))) {
-                    moves.add(new Move(from, to));
-                }
-            }
-        }
+        List<Move> moves = getBishopMoves(board,from);
         return moves;
     }
 }
