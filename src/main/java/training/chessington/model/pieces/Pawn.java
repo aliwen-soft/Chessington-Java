@@ -41,9 +41,9 @@ public class Pawn extends AbstractPiece {
                 moves.add(new Move(from, to));
             }
         }
-
-        if (board.getCompleteMoves().size() > 0 && board.getCompleteMoves().get(board.getCompleteMoves().size() - 1).getPiece() == PieceType.PAWN) {
-            BoardMove preMove = board.getCompleteMoves().get(board.getCompleteMoves().size() - 1);
+        List<BoardMove> preMoves = board.getCompleteMoves();
+        if (preMoves.size() > 0 && preMoves.get(board.getCompleteMoves().size() - 1).getPiece() == PieceType.PAWN) {
+            BoardMove preMove =preMoves.get(board.getCompleteMoves().size() - 1);
             boolean doubleMove = Math.abs(preMove.getFrom().getRow() - preMove.getTo().getRow()) == 2;
             boolean nextTo = Math.abs(preMove.getTo().getCol() - from.getCol()) == 1 && preMove.getTo().getRow() == from.getRow();
             if (doubleMove && nextTo) {

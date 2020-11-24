@@ -310,11 +310,11 @@ public class PawnTest {
         // Arrange
         Board board = Board.empty();
         Piece pawn = new Pawn(PlayerColour.BLACK);
-        Piece enemypawm = new Pawn(PlayerColour.WHITE);
+        Piece enemypawn = new Pawn(PlayerColour.WHITE);
         Coordinates pawnCoords = new Coordinates(4, 5);
         Coordinates enemypawnCoords = new Coordinates(6, 6);
         board.placePiece(pawnCoords, pawn);
-        board.placePiece(enemypawnCoords, enemypawm);
+        board.placePiece(enemypawnCoords, enemypawn);
 
         board.move(enemypawnCoords,enemypawnCoords.plus(-2,0));
 
