@@ -15,6 +15,22 @@ public class King extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+        List<Move> moves = new ArrayList<>();
+
+        int[] cols = {1,0,-1};
+        int[] rows = {1,0,-1};
+        for(int c :cols) {
+            for(int r :rows) {
+                Coordinates to = from.plus(c, r);
+                if(c!=0 || r!= 0) {
+                    if (to.attackableSpace(board, colour) || to.emptySpace(board)) {
+                        moves.add(new Move(from, to));
+                    }
+                }
+            }
+        }
+
+
+        return moves;
     }
 }
