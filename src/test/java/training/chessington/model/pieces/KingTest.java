@@ -245,6 +245,42 @@ public class KingTest {
 
     }
 
+    @Test
+    public void whiteKingCannotLeaveBoard() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Coordinates coordsking = new Coordinates(7, 7);
+
+        board.placePiece(coordsking, king);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(0,1)));
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(1,1)));
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(1,0)));
+    }
+
+    @Test
+    public void blackKingCannotLeaveBoard() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.BLACK);
+        Coordinates coordsking = new Coordinates(0, 0);
+
+        board.placePiece(coordsking, king);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coordsking, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(0,-1)));
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(-1,-1)));
+        assertThat(moves).doesNotContain(new Move(coordsking, coordsking.plus(-1,0)));
+    }
+
 
 
 }
