@@ -19,7 +19,7 @@ public class King extends AbstractPiece {
 
         int[] cols = {1,0,-1};
         int[] rows = {1,0,-1};
-        
+
         for(int c :cols) {
             for(int r :rows) {
                 Coordinates to = from.plus(c, r);
