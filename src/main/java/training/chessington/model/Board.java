@@ -50,18 +50,36 @@ public class Board {
     }
 
     public void move(Coordinates from, Coordinates to) {
+        Piece piece= get(from);
         Piece.PieceType pieceType = get(from).getType();
         if(pieceType == Piece.PieceType.PAWN && from.getCol() != to.getCol() && board[to.getRow()][to.getCol()] == null ){
             board[from.getRow()][to.getCol()] = null;
         }
         if(pieceType == Piece.PieceType.KING && Math.abs(from.getCol() - to.getCol())==2){
             int rook = from.getCol() - to.getCol()<0 ? 7 : 0;
-            int dirction = from.getCol() - to.getCol()<0 ? 1 : -1;
+            int direction = from.getCol() - to.getCol()>0 ? 1 : -1;
             if(board[from.getRow()][rook]!=null&&board[from.getRow()][rook].getType()==Piece.PieceType.ROOK){
-                move(new Coordinates(from.getRow(),rook),to.plus(0,-dirction));
+                Coordinates rookloc = new Coordinates(from.getRow(),rook);
+                Piece movingPiece= board[rookloc.getRow()][rookloc.getCol()];
+                movingPiece.pieceMoved();
+                board[rookloc.getRow()][to.getCol()+direction] = movingPiece;
+                board[rookloc.getRow()][rookloc.getCol()] = null;
             }
             board[from.getRow()][to.getCol()] = null;
         }
+        if(pieceType == Piece.PieceType.ROOK && !piece.getHasMoved()){
+            Coordinates kingloc=new Coordinates(from.getRow(), 4);
+            if(board[from.getRow()][4]!=null&&board[kingloc.getRow()][kingloc.getCol()].getType()==Piece.PieceType.KING){
+               if(to.getCol()==3 || to.getCol()==5){
+                   int dir = to.getCol()==3? -1:1;
+                   Piece movingPiece= board[kingloc.getRow()][kingloc.getCol()];
+                   movingPiece.pieceMoved();
+                   board[kingloc.getRow()][kingloc.getCol()+dir*2] = movingPiece;
+                   board[kingloc.getRow()][kingloc.getCol()] = null;
+               }
+            }
+        }
+
         Piece movingPiece= board[from.getRow()][from.getCol()];
         movingPiece.pieceMoved();
         board[to.getRow()][to.getCol()] = movingPiece;

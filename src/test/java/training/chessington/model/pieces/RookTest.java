@@ -63,10 +63,10 @@ public class RookTest {
         board.placePiece(coordsCastle, castle);
 
         // Act
-        List<Move> moves = castle.getAllowedMoves(coordsking, board);
+        List<Move> moves = castle.getAllowedMoves(coordsCastle, board);
 
         // Assert
-        Move castling = new Move(coordsCastle, coordsking.plus(0,2));
+        Move castling = new Move(coordsCastle, coordsking.plus(0,-1));
         assertThat(moves).contains(castling);
         board.move(castling.getFrom(), castling.getTo());
         assertThat(board.get(castling.getTo().plus(0,-1)).getType()== Piece.PieceType.KING);
