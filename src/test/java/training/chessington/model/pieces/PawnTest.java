@@ -301,6 +301,7 @@ public class PawnTest {
 
         // Assert
         assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(1,0)));
+        assertThat(board.get(enemypawnCoords.plus(2,0))==null);
     }
 
     @Test
@@ -321,5 +322,6 @@ public class PawnTest {
 
         // Assert
         assertThat(moves).contains(new Move(pawnCoords , enemypawnCoords.plus(-1,0)));
+        assertThat(board.get(enemypawnCoords.plus(-2,0))==null);
     }
 }
