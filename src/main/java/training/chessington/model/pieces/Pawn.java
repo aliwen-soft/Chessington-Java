@@ -10,13 +10,6 @@ public class Pawn extends AbstractPiece {
         super(Piece.PieceType.PAWN, colour);
     }
 
-    private boolean notMoved(PlayerColour colour, Coordinates from) {
-        if (colour == PlayerColour.WHITE) {
-            return from.getRow() == 6;
-        } else {
-            return from.getRow() == 1;
-        }
-    }
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
@@ -30,7 +23,7 @@ public class Pawn extends AbstractPiece {
         }
 
         to = from.plus(2 * modifier, 0);
-        if (to.emptySpace(board) && notMoved(colour, from)) {
+        if (to.emptySpace(board) && !hasMoved) {
             moves.add(new Move(from, to));
         }
 

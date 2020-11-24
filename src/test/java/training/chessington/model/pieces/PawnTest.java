@@ -114,9 +114,11 @@ public class PawnTest {
 
         Piece blackPawn = new Pawn(PlayerColour.BLACK);
         Coordinates blackCoords = new Coordinates(3, 4);
+        blackPawn.pieceMoved();
         board.placePiece(blackCoords, blackPawn);
 
         Piece whitePawn = new Pawn(PlayerColour.WHITE);
+        whitePawn.pieceMoved();
         Coordinates whiteCoords = new Coordinates(4, 4);
         board.placePiece(whiteCoords, whitePawn);
 
@@ -225,10 +227,12 @@ public class PawnTest {
         Board board = Board.empty();
 
         Piece blackPawn = new Pawn(PlayerColour.BLACK);
+        blackPawn.pieceMoved();
         Coordinates blackCoords = new Coordinates(3, 0);
         board.placePiece(blackCoords, blackPawn);
 
         Piece whitePawn = new Pawn(PlayerColour.WHITE);
+        whitePawn.pieceMoved();
         Coordinates whiteCoords = new Coordinates(4, 0);
         board.placePiece(whiteCoords, whitePawn);
 

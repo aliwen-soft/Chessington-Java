@@ -30,6 +30,22 @@ public class King extends AbstractPiece {
                 }
             }
         }
+
+        if(!hasMoved){
+            int[] direction = {1,-1};
+            for(int d: direction){
+                Piece rook = board.get(new Coordinates(from.getRow(),d==1?7:0));
+                if(rook!=null && !rook.getHasMoved()) {
+                    Coordinates blockingSpace = from.plus(0, d);
+                    Coordinates to = from.plus(0, d*2);
+                    if (blockingSpace.emptySpace(board) && (to.emptySpace(board) || to.attackableSpace(board, colour))) {
+                        moves.add(new Move(from, to));
+                    }
+                }
+            }
+        }
+
+
         return moves;
     }
 }

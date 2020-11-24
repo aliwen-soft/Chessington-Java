@@ -54,7 +54,17 @@ public class Board {
         if(pieceType == Piece.PieceType.PAWN && from.getCol() != to.getCol() && board[to.getRow()][to.getCol()] == null ){
             board[from.getRow()][to.getCol()] = null;
         }
-        board[to.getRow()][to.getCol()] = board[from.getRow()][from.getCol()];
+        if(pieceType == Piece.PieceType.KING && Math.abs(from.getCol() - to.getCol())==2){
+            int rook = from.getCol() - to.getCol()<0 ? 7 : 0;
+            int dirction = from.getCol() - to.getCol()<0 ? 1 : -1;
+            if(board[from.getRow()][rook]!=null&&board[from.getRow()][rook].getType()==Piece.PieceType.ROOK){
+                move(new Coordinates(from.getRow(),rook),to.plus(0,-dirction));
+            }
+            board[from.getRow()][to.getCol()] = null;
+        }
+        Piece movingPiece= board[from.getRow()][from.getCol()];
+        movingPiece.pieceMoved();
+        board[to.getRow()][to.getCol()] = movingPiece;
         board[from.getRow()][from.getCol()] = null;
         completeMoves.add(new BoardMove(from,to,pieceType));
     }
