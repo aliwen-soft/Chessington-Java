@@ -18,7 +18,7 @@ public class Pawn extends AbstractPiece {
         List<Move> moves = new ArrayList<>();
         if (this.colour.equals(PlayerColour.WHITE)) {
             Coordinates to = from.plus(-1, 0);
-            if (board.get(to)==null) {
+            if ( to.getRow()>0 && board.get(to)==null) {
                 moves.add(new Move(from, to));
             }
             if(from.getRow()==6){
@@ -29,7 +29,7 @@ public class Pawn extends AbstractPiece {
             }
         }else{
             Coordinates to = from.plus(1, 0);
-            if (board.get(to)==null) {
+            if (to.getRow()<8 && board.get(to)==null) {
                 moves.add(new Move(from, to));
             }
             to = from.plus(2, 0);
