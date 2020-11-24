@@ -5,7 +5,6 @@ import training.chessington.model.Coordinates;
 import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Bishop extends AbstractPiece {
@@ -15,7 +14,7 @@ public class Bishop extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        List<Move> moves = getBishopMoves(board,from);
+        List<Move> moves = getDiagonalMoves(board,from);
         return moves;
     }
 }

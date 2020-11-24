@@ -5,7 +5,6 @@ import training.chessington.model.Coordinates;
 import training.chessington.model.Move;
 import training.chessington.model.PlayerColour;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Rook extends AbstractPiece {
@@ -15,7 +14,7 @@ public class Rook extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        List<Move> moves =getRookMoves(board,from);
+        List<Move> moves = getStraightMoves(board,from);
         return moves;
     }
 

@@ -30,8 +30,6 @@ public class King extends AbstractPiece {
                 }
             }
         }
-
-
         return moves;
     }
 }
